@@ -3,16 +3,16 @@ export type RecommendationAnswer = { number:number;answer:number|boolean;text?:s
 type RecommendationArea = { label:string;title:string;recommendation:string };
 
 const definedAreas={
-  additional:{label:"sprzedaż dodatkowa",title:"Sprzedaż aktywna",recommendation:"Przypomnieć zespołowi standard proponowania produktu dodatkowego przy każdej transakcji."},
-  app:{label:"promocje w aplikacji lojalnościowej",title:"Aplikacja lojalnościowa",recommendation:"Wzmocnić aktywne informowanie klientów o promocjach i korzyściach dostępnych w aplikacji lojalnościowej."},
-  stock:{label:"dostępność towaru",title:"Dostępność towaru",recommendation:"Zweryfikować dostępność kluczowych kategorii i uzupełniać braki zgodnie z planem sprzedaży."},
-  farewell:{label:"uprzejme pożegnanie",title:"Standard obsługi",recommendation:"Przećwiczyć z zespołem konsekwentne, uprzejme pożegnanie klienta po zakończeniu obsługi."},
-  greeting:{label:"powitanie klienta",title:"Pierwszy kontakt",recommendation:"Wdrożyć konsekwentne powitanie każdego klienta i przypomnieć standard pierwszego kontaktu."},
-  returns:{label:"obsługa zwrotu opakowań",title:"Obsługa zwrotów",recommendation:"Zweryfikować gotowość stanowiska i procedurę obsługi zwrotu opakowań."},
-  appearance:{label:"schludny i profesjonalny wygląd",title:"Standard wyglądu",recommendation:"Przypomnieć standard schludnego, profesjonalnego wyglądu i zweryfikować jego stosowanie na każdej zmianie."},
-  cleanliness:{label:"czystość punktu",title:"Czystość punktu",recommendation:"Wprowadzić regularną kontrolę czystości otoczenia i wnętrza punktu z potwierdzeniem wykonania."},
-  professionalism:{label:"profesjonalna i sprawna obsługa",title:"Profesjonalizm obsługi",recommendation:"Omówić z zespołem standard uprzejmej i sprawnej obsługi bez zbędnego oczekiwania."},
-  selfCheckout:{label:"gotowość stanowiska samoobsługowego",title:"Stanowisko samoobsługowe",recommendation:"Zapewnić dostępność i gotowość stanowiska samoobsługowego w godzinach wzmożonego ruchu."},
+  additional:{label:"additional sales",title:"Active selling",recommendation:"Remind the team to consistently offer an additional product during each transaction."},
+  app:{label:"loyalty app promotions",title:"Loyalty app",recommendation:"Strengthen active communication about promotions and benefits available in the loyalty app."},
+  stock:{label:"product availability",title:"Product availability",recommendation:"Verify availability of key categories and replenish gaps in line with the sales plan."},
+  farewell:{label:"polite farewell",title:"Service standard",recommendation:"Practice a consistent, polite farewell with the team after each customer interaction."},
+  greeting:{label:"customer greeting",title:"First contact",recommendation:"Implement a consistent greeting for every customer and reinforce the first-contact standard."},
+  returns:{label:"package return handling",title:"Returns handling",recommendation:"Verify that the station and procedure for package returns are ready and understood."},
+  appearance:{label:"neat and professional appearance",title:"Appearance standard",recommendation:"Reinforce the neat, professional appearance standard and verify it on every shift."},
+  cleanliness:{label:"store cleanliness",title:"Store cleanliness",recommendation:"Introduce regular checks of the store surroundings and interior, with confirmation that the checks were completed."},
+  professionalism:{label:"professional and efficient service",title:"Service professionalism",recommendation:"Review the standard for polite and efficient service with the team, avoiding unnecessary customer waiting."},
+  selfCheckout:{label:"self-checkout readiness",title:"Self-checkout",recommendation:"Ensure the self-checkout station is available and ready during periods of higher traffic."},
 } satisfies Record<string,RecommendationArea>;
 
 const shortAreas:Record<number,RecommendationArea>={
@@ -25,32 +25,32 @@ const shortAreas:Record<number,RecommendationArea>={
 };
 
 function areaForAnswer(answer:RecommendationAnswer) {
-  const text=(answer.text||"").toLocaleLowerCase("pl-PL");
-  if(text.includes("dodatkowy produkt"))return definedAreas.additional;
-  if(text.includes("aplikacji lojalnościowej"))return definedAreas.app;
-  if(text.includes("dostępne")||text.includes("wyeksponowane")||text.includes("zatowar"))return definedAreas.stock;
-  if(text.includes("pożegn"))return definedAreas.farewell;
-  if(text.includes("przywita"))return definedAreas.greeting;
-  if(text.includes("zwrotu opakowań"))return definedAreas.returns;
-  if(text.includes("schludnie")||text.includes("strój roboczy")||text.includes("wyglądała"))return definedAreas.appearance;
-  if(text.includes("czyste")||text.includes("czystość")||text.includes("otoczenie"))return definedAreas.cleanliness;
-  if(text.includes("profesjonalnie")||text.includes("uprzejmie")||text.includes("sprawnie"))return definedAreas.professionalism;
-  if(text.includes("samoobsług"))return definedAreas.selfCheckout;
+  const text=(answer.text||"").toLocaleLowerCase("en-US");
+  if(text.includes("additional product"))return definedAreas.additional;
+  if(text.includes("loyalty app"))return definedAreas.app;
+  if(text.includes("available")||text.includes("displayed")||text.includes("stock"))return definedAreas.stock;
+  if(text.includes("farewell"))return definedAreas.farewell;
+  if(text.includes("greet"))return definedAreas.greeting;
+  if(text.includes("package return"))return definedAreas.returns;
+  if(text.includes("neat")||text.includes("work clothing")||text.includes("appearance"))return definedAreas.appearance;
+  if(text.includes("clean")||text.includes("surroundings")||text.includes("interior"))return definedAreas.cleanliness;
+  if(text.includes("professionally")||text.includes("politely")||text.includes("efficiently"))return definedAreas.professionalism;
+  if(text.includes("self-checkout"))return definedAreas.selfCheckout;
   return shortAreas[answer.number];
 }
 
 export function recommendationsForAnswers(answers:RecommendationAnswer[]) {
   const failed=answers.filter(item=>!Boolean(item.answer));
-  if(!failed.length)return [{title:"Utrzymanie standardu",text:"Utrzymać obecny poziom realizacji standardów i kontynuować regularny monitoring jakości obsługi."}];
-  return failed.map(item=>{const area=areaForAnswer(item);return {title:area?.title||"Działanie korygujące",text:area?.recommendation||"Omówić niezgodność z zespołem i wdrożyć działanie korygujące."}});
+  if(!failed.length)return [{title:"Maintain the standard",text:"Maintain the current level of standards and continue regular service-quality monitoring."}];
+  return failed.map(item=>{const area=areaForAnswer(item);return {title:area?.title||"Corrective action",text:area?.recommendation||"Review the issue with the team and implement a corrective action."}});
 }
 
 export function conclusionForAnswers(answers:RecommendationAnswer[],score:number) {
   const passed=answers.filter(item=>Boolean(item.answer)).map(item=>areaForAnswer(item)?.label).filter(Boolean);
   const failed=answers.filter(item=>!Boolean(item.answer)).map(item=>areaForAnswer(item)?.label).filter(Boolean);
   const roundedScore=Math.round(score);
-  const status=roundedScore>=83?"Punkt realizuje większość kontrolowanych standardów na dobrym poziomie.":roundedScore>=67?"Wynik wskazuje na częściową realizację standardów i potrzebę ukierunkowanej poprawy.":"Wynik wymaga pilnych działań korygujących i ponownej weryfikacji standardów.";
-  const strengths=passed.length?`Mocne strony: ${passed.join(", ")}.`:"Nie potwierdzono pełnej realizacji żadnego z kontrolowanych standardów.";
-  const improvements=failed.length?`Do poprawy: ${failed.join(", ")}.`:"Nie stwierdzono obszarów wymagających działań korygujących.";
+  const status=roundedScore>=83?"The store meets most of the assessed standards at a good level.":roundedScore>=67?"The score indicates partial compliance and a need for targeted improvement.":"The score requires urgent corrective action and follow-up verification.";
+  const strengths=passed.length?`Strengths: ${passed.join(", ")}.`:"No assessed standard was fully confirmed.";
+  const improvements=failed.length?`Areas to improve: ${failed.join(", ")}.`:"No areas requiring corrective action were identified.";
   return {status,strengths,improvements};
 }
