@@ -5,7 +5,7 @@ export function calculateScore(answers: boolean[]) {
 }
 
 export function calculateScoreForQuestions(answers: Array<{ number:number;text:string;answer:boolean }>) {
-  if (answers.length !== 6 && answers.length !== 10) throw new Error("Wymagane jest dokładnie 6 albo 10 odpowiedzi");
+  if (answers.length !== 6 && answers.length !== 10) throw new Error("Exactly 6 or 10 answers are required");
   const score = answers.reduce((sum, item) => {
     if (!item.answer) return sum;
     if (isCriticalQuestionText(item.text)) return sum + (answers.length === 6 ? 40 : 20);
@@ -18,7 +18,7 @@ export function calculateScoreForQuestions(answers: Array<{ number:number;text:s
 export function scoreWeightsForAnswerCount(answerCount: number) {
   if (answerCount === 6) return [40, 12, 12, 12, 12, 12] as const;
   if (answerCount === 10) return [10, 10, 10, 10, 20, 10, 10, 10, 5, 5] as const;
-  throw new Error("Wymagane jest dokładnie 6 albo 10 odpowiedzi");
+  throw new Error("Exactly 6 or 10 answers are required");
 }
 
 export function criticalQuestionWeightForAnswerCount(answerCount: number) {
@@ -26,7 +26,8 @@ export function criticalQuestionWeightForAnswerCount(answerCount: number) {
 }
 
 export function isCriticalQuestionText(text: string) {
-  return text.toLocaleLowerCase("pl-PL").includes("dodatkowy produkt");
+  const normalized = text.toLocaleLowerCase();
+  return normalized.includes("dodatkowy produkt") || normalized.includes("additional product");
 }
 
 export function normalizeMpcs(values: string[]) {
@@ -39,6 +40,6 @@ const exactStoreDestinations: Record<string, string> = {};
 
 export function googleMapsDirectionsUrl(city: string, street: string, mpc?: string) {
   const exactDestination = mpc ? exactStoreDestinations[mpc.trim().toUpperCase()] : undefined;
-  const destination = encodeURIComponent(exactDestination || `${street.trim()}, ${city.trim()}, Polska`);
+  const destination = encodeURIComponent(exactDestination || `${street.trim()}, ${city.trim()}, Poland`);
   return `https://www.google.com/maps/dir/?api=1&destination=${destination}&travelmode=driving`;
 }
