@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import EnglishInterface from "@/components/EnglishInterface";
 import "./globals.css";
 import "./wizard-fix.css";
 
@@ -20,5 +21,5 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { themeColor: "#0b6b43", width: "device-width", initialScale: 1 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="pl"><body>{children}</body></html>;
+  return <html lang="en"><body><EnglishInterface />{children}</body></html>;
 }
