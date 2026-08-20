@@ -1,7 +1,7 @@
 export const VISIT_AREAS = [
-  { key: "warzywa_owoce", label: "Warzywa i owoce" },
-  { key: "pieczywo", label: "Pieczywo" },
-  { key: "dania_przekaski", label: "Dania gotowe i szybkie przekąski" },
+  { key: "warzywa_owoce", label: "Fruit and vegetables" },
+  { key: "pieczywo", label: "Bakery" },
+  { key: "dania_przekaski", label: "Ready meals and quick snacks" },
 ] as const;
 
 export type VisitAreaKey = (typeof VISIT_AREAS)[number]["key"];
