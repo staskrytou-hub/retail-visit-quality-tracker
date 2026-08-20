@@ -1,0 +1,21 @@
+.wizard-actions {
+  width: 100%;
+  justify-content: flex-start !important;
+  align-items: center;
+  gap: 12px !important;
+  position: relative;
+  z-index: 2;
+}
+
+.wizard-actions .btn-primary {
+  display: inline-flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  min-width: 112px;
+  background: #0b6b43 !important;
+  color: #ffffff !important;
+}
+
+.wizard-actions .btn-primary:hover {
+  background: #073c2a !important;
+}
