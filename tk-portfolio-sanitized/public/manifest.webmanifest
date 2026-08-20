@@ -1,0 +1,17 @@
+{
+  "name": "Retail Visit Quality Tracker",
+  "short_name": "Visit Tracker",
+  "description": "Retail quality visit tracking demo",
+  "start_url": "/",
+  "scope": "/",
+  "id": "/",
+  "display": "standalone",
+  "background_color": "#f3f7f5",
+  "theme_color": "#0b6b43",
+  "lang": "pl",
+  "categories": [
+    "business",
+    "productivity"
+  ],
+  "icons": []
+}
