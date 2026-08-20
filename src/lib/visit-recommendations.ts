@@ -26,7 +26,7 @@ const shortAreas:Record<number,RecommendationArea>={
 
 function areaForAnswer(answer:RecommendationAnswer) {
   const text=(answer.text||"").toLocaleLowerCase("en-US");
-  if(text.includes("additional product"))return definedAreas.additional;
+  if(text.includes("additional product")||text.includes("dodatkowy produkt"))return definedAreas.additional;
   if(text.includes("loyalty app"))return definedAreas.app;
   if(text.includes("available")||text.includes("displayed")||text.includes("stock"))return definedAreas.stock;
   if(text.includes("farewell"))return definedAreas.farewell;
@@ -54,3 +54,4 @@ export function conclusionForAnswers(answers:RecommendationAnswer[],score:number
   const improvements=failed.length?`Areas to improve: ${failed.join(", ")}.`:"No areas requiring corrective action were identified.";
   return {status,strengths,improvements};
 }
+
