@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import "./wizard-fix.css";
 
 export const metadata: Metadata = {
   title: "Retail Visit Quality Tracker",
