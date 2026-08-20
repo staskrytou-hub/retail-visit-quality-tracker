@@ -198,7 +198,7 @@ function parseStoreRow(row: StructureRow) {
 function seedStructure(db: AppDatabase) {
   const workbookPath = path.resolve(process.cwd(), "data/demo-structure.xlsx");
   if (!fs.existsSync(workbookPath)) throw new Error(`Brak pliku struktury: ${workbookPath}`);
-  const workbook = XLSX.readFile(workbookPath);
+  const workbook = XLSX.read(fs.readFileSync(workbookPath), { type: "buffer" });
   const sheet = workbook.Sheets.Export;
   if (!sheet) throw new Error("Brak arkusza Export w pliku struktury");
   const rows = XLSX.utils.sheet_to_json<StructureRow>(sheet, { defval: "" });
