@@ -20,13 +20,13 @@ export function groupVisitsByDate<T extends DatedVisit>(visits:T[],now=new Date(
     days180:startOfToday.getTime()-(180*DAY),
   };
   const groups:VisitDateGroup<T>[]=[
-    {id:"week",label:"Wizyty w tym tygodniu",visits:[]},
-    {id:"previous",label:"Wizyty w poprzednim tygodniu",visits:[]},
-    {id:"30",label:"Pozostałe wizyty z ostatnich 30 dni",visits:[]},
-    {id:"60",label:"Wizyty od 31 do 60 dni",visits:[]},
-    {id:"90",label:"Wizyty od 61 do 90 dni",visits:[]},
-    {id:"180",label:"Wizyty od 91 do 180 dni",visits:[]},
-    {id:"archive",label:"Archiwum - starsze niż 180 dni",visits:[]},
+    {id:"week",label:"Visits this week",visits:[]},
+    {id:"previous",label:"Visits last week",visits:[]},
+    {id:"30",label:"Other visits from the last 30 days",visits:[]},
+    {id:"60",label:"Visits from 31 to 60 days ago",visits:[]},
+    {id:"90",label:"Visits from 61 to 90 days ago",visits:[]},
+    {id:"180",label:"Visits from 91 to 180 days ago",visits:[]},
+    {id:"archive",label:"Archive - older than 180 days",visits:[]},
   ];
   for(const visit of visits){
     const timestamp=new Date(visit.completedAt).getTime();
